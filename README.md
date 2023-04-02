@@ -6,7 +6,7 @@ This tool is an addon to the Variant analyze. The tool extracts molecules wiht h
 The tool works python 3.7 or higher,  and requires (pandas, openpyxl, xlsxwriter)
 
 ## Usage
-A detailed description of all tools can be found on [Galaxy](http://usegalaxy.org) with all parameters, input and output files.
+A detailed description of all tools can be found on [Galaxy](http://usegalaxy.org), and on [JCU](https://invenio.nusl.cz/record/519820?ln=en) with all parameters, input and output files.
 
 ### Haplotype Analyser
 Extracts molecules with haplotypes and outputs 3 Xlsx files, the haplotype analysis file, haplotypes tiers file, and an updated allele frequencies file.
