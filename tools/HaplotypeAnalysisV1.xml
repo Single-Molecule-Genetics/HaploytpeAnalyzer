@@ -1,0 +1,57 @@
+<tool id="haplotype_analyser" name="Haplotype Analyser" version="1.0.0">
+  <description>Finds haplotypes within molecules and classifies them based on quality driven from the variant analyser results.</description>
+  <command>
+    <![CDATA[python '$__tool_directory__/HaplotypeAnalysisV1.py'
+        -s $input1
+        -f $input2
+        --outputFile1 '$haplotype_ref_alt'
+        --outputFile2 '$haplotype_tier_number'
+        --outputFile3 '$allele_frequencies']]>
+  </command>
+  <inputs>
+    <param type="data" name="input1" label="Variant analyser summary xlsx file"/>
+    <param type="data" name="input2" label="Variant analyser variant's frequencies file"/>
+    <param type="text" name="input3" label="Library name"/>
+  </inputs>
+  <outputs>
+    <data name="haplotype_ref_alt" format="xlsx" label="${input3}__HaplotypeAnalysisV4.1"/>
+    <data name="haplotype_tier_number" format="xlsx" label="${input3}__Tier_AnalysisV4.1"/>
+    <data name="allele_frequencies" format="xlsx" label="${input3}__NewFreqV4.1"/>
+  </outputs>
+  <tests>
+      <test>
+          <param name="file1" value="summary_test.xlsx"/>
+          <param name="file2" value="frequency_test.xlsx"/>
+          <output name="haplotype_ref_alt" file="Haplotype_AnalysisV4.1.xlsx" decompress="true"/>
+          <output name="haplotype_tier_number" file="Haplotype_Tier_AnalysisV4.xlsx" decompress="true"/>
+          <output name="allele_frequencies" file="NewFreqV4.1.xlsx" decompress="true"/>
+      </test>
+  </tests>
+  <help> <![CDATA[
+      # Haplotype Analyzer
+
+      This tool is an addon to the Variant analyze. The tool extracts molecules wiht haplotypes(two or more variants on the same molecule), and classifies them through the same tier system used by the variant analyzer. This classification gives a confidence of what could be a true haplotype in a sequenced molecule versus sequenceing artefacts, and helps removing these artefacts which might appear as high quality variant, and pass the VarA filters. Removing these variants affect the allele frequencies which is recalculated through the tool and provided in a new Xlsx file.
+
+      ## Dependencies
+      The tool works python 3.7 or higher,  and requires (pandas, openpyxl, xlsxwriter)
+
+      ## Usage
+      A detailed description of all tools can be found on [Galaxy](http://usegalaxy.org), and on [JCU](https://invenio.nusl.cz/record/519820?ln=en) with all parameters, input and output files.
+
+      ### Haplotype Analyser
+      Extracts molecules with haplotypes and outputs 3 Xlsx files, the haplotype analysis file, haplotypes tiers file, and an updated allele frequencies file.
+
+      **Input**
+
+      **Dataset 1 (--SummaryFile):** XLSX summary file from the variant analyser output.
+
+      **Dataset 2 (--FreqFile):** XLSX variants frequencies file from the variant analyser.
+
+      **Output**
+
+      The outputs are, Xlsx file with extracted haplotypes Ref > Alt format, Xlsx file with extracted haplotypes tier number format, and Xlsx file with updated allele frequencies for the original VF file.
+
+
+  ]]>
+  </help>
+</tool>
